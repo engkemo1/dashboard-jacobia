@@ -1,3 +1,4 @@
+import 'package:dashboard/ViewModel/GetX/SignInGetX.dart';
 import 'package:dashboard/view/pages/Users/UserRequest.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var authCo = AuthController();
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
@@ -35,7 +38,9 @@ class HomeScreen extends StatelessWidget {
 
                     ],),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.logout,color: Colors.red,))
+                IconButton(onPressed: () {
+                  authCo.signOut();
+                }, icon: Icon(Icons.logout,color: Colors.red,))
               ],
             )
           ],

@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:dashboard/ViewModel/GetX/QuestionGetX.dart';
+import 'package:flutter/material.dart';import '../../../ViewModel/GetX/CategoryGetX.dart';
+
 import '../../../constant.dart';
+import 'package:multiselect/multiselect.dart';
+import 'package:get/get.dart';
 
 class TotalQuestions extends StatefulWidget {
 
@@ -12,6 +16,8 @@ class _TotalQuestionsState extends State<TotalQuestions> {
 
   @override
   Widget build(BuildContext context) {
+    var controller= QustionGetX();
+    var cat =CategoryController();
     return Scaffold(
       appBar: AppBar(
 
@@ -28,41 +34,33 @@ class _TotalQuestionsState extends State<TotalQuestions> {
               SizedBox(
                 height: 30,
               ),
-              DropdownButtonFormField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  hintText: 'Please Select Category',
-                  hintStyle: TextStyle(color: Colors.white),
-                  enabledBorder: OutlineInputBorder(
-                    //<-- SEE HERE
-                    borderSide: BorderSide(color: Colors.white),
+              Column(
+                children: [
+                  StreamBuilder<Object>(
+                    stream: cat.docs,
+                    builder: (context,AsyncSnapshot snapshot) {
+                      List<String> options = ['sda','sdasda'];
+                      return DropDownMultiSelect(
+                        options: options,
+                        whenEmpty: snapshot.data.docs[1]['name'],
+                        onChanged: (value) {
+                          controller.selectedOptionList.value = value;
+                          controller.selectedOption.value = "";
+                          controller.selectedOptionList.value.forEach((element) {
+                            controller.selectedOption.value =
+                                controller.selectedOption.value + " " + element;
+                          });
+                        },
+                        selectedValues: controller.selectedOptionList.value,
+                      );
+                    }
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    //<-- SEE HERE
-                    borderSide: BorderSide(color: Colors.white, width: 2),
+                  SizedBox(
+                    height: 20,
                   ),
-                  filled: true,
-                  fillColor: appBarColor,
-                ),
-                dropdownColor: Colors.black,
-                value: dropdownValue,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    dropdownValue = newValue!;
-                  });
-                },
-                items: ['all category','Science', 'Math', 'Programming']
-                    .map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  );
-                }).toList(),
-              ),
-              Container(
+                  Obx(() => Text(controller.selectedOption.value))
+                ],
+              ),              Container(
                 height: 200,width: 300,
                 child: Column(
                   children: [

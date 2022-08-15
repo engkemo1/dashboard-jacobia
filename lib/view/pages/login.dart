@@ -1,3 +1,4 @@
+import 'package:dashboard/ViewModel/GetX/SignInGetX.dart';
 import 'package:dashboard/constant.dart';
 import 'package:dashboard/view/pages/HomeScreen.dart';
 import 'package:email_validator/email_validator.dart';
@@ -9,12 +10,17 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+final TextEditingController _emailController = TextEditingController();
+final TextEditingController _passwordController = TextEditingController();
+
+
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   var rememberValue = false;
 
   @override
   Widget build(BuildContext context) {
+    var authController =AuthController();
     return Scaffold(
       backgroundColor: appBarColor,
       body: SingleChildScrollView(
@@ -42,10 +48,11 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextFormField(
-                      // validator: (value) => EmailValidator.validate(value!)
-                      //     ? null
-                      //     : "Please enter a valid email",
+                      validator: (value) => EmailValidator.validate(value!)
+                          ? null
+                          : "Please enter a valid email",
                       maxLines: 1,
+                      controller: _emailController,
                       decoration: InputDecoration(
                         hintText: 'Enter your email',
                         hintStyle: TextStyle(color: Colors.white),
@@ -72,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 20,
                     ),
                     TextFormField(
+                      controller: _passwordController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your password';
@@ -123,8 +131,10 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> HomeScreen()));
-                        }
+                          authController.loginUser(
+                            _emailController.text,
+                            _passwordController.text,
+                          );               }
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.greenAccent,
