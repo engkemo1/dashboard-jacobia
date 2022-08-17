@@ -54,7 +54,7 @@ class _QuizState extends State<Quiz> {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white,
-              boxShadow: [BoxShadow(blurRadius: 100,color: Colors.grey)]),
+              boxShadow: [BoxShadow(blurRadius: 100,color: Colors.white10)]),
               height: 230,
               child: Stack(
                 children: [
@@ -108,6 +108,7 @@ class _QuizState extends State<Quiz> {
                 boxShadow: [
                   BoxShadow(
                     blurRadius: 100,
+                    color: Colors.white10
 
                   )
                 ]
@@ -167,7 +168,7 @@ class _QuizState extends State<Quiz> {
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20), color: Colors.white,
-                  boxShadow: [BoxShadow(blurRadius: 100,color: Colors.grey)]),
+                  boxShadow: [BoxShadow(blurRadius: 100,color: Colors.white10)]),
               height: 230,
               child: Stack(
                 children: [

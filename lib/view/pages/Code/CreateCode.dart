@@ -45,7 +45,7 @@ IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_sharp,color: Colo
 
                     BoxShadow(
                         blurRadius: 100,
-                      color: backgroundColor
+                      color: Colors.white38
                     ),
 
                   ]
