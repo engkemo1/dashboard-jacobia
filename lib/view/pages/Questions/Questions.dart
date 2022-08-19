@@ -3,7 +3,6 @@ import 'package:multiselect/multiselect.dart';
 import '../../../constant.dart';
 import '../../../ViewModel/GetX/QuestionGetX.dart';
 import '../../widget/DropDownWidget.dart';
-import 'package:get/get.dart';
 
 class Questions extends StatefulWidget {
   @override
@@ -336,31 +335,34 @@ class _QuestionsState extends State<Questions> {
                 width: 150,
                 child: ElevatedButton(
                   onPressed: () {
-                    print(truefalse);
-                    controller.answer = corAns;
-                    controller.answertf = truefalse;
-                    controller.option1 = _option1.text;
-                    controller.option2 = _option1.text;
-                    controller.option3 = _option1.text;
-                    controller.option4 = _option1.text;
-                    controller.option5 = _option1.text;
-                    controller.type = index;
-                    controller.question = _question.text;
+                    if(_formKey.currentState!.validate()){
+                      print(truefalse);
+                      controller.answer = corAns;
+                      controller.answertf = truefalse;
+                      controller.option1 = _option1.text;
+                      controller.option2 = _option1.text;
+                      controller.option3 = _option1.text;
+                      controller.option4 = _option1.text;
+                      controller.option5 = _option1.text;
+                      controller.type = index;
+                      controller.question = _question.text;
 
-                    if (controller.type == 0) {
-                      controller.postQOptions();
-                    } else {
-                      controller.postQTF();
+                      if (controller.type == 0) {
+                        controller.postQOptions();
+                      } else {
+                        controller.postQTF();
+                      }
+
+                      _option1.clear();
+                      _option2.clear();
+                      _option3.clear();
+                      _option4.clear();
+                      _option5.clear();
+                      _question.clear();
+                      _imageUrLController.clear();
+                      controller.selectedOptionList.value.clear();
                     }
-
-                    _option1.clear();
-                    _option2.clear();
-                    _option3.clear();
-                    _option4.clear();
-                    _option5.clear();
-                    _question.clear();
-                    _imageUrLController.clear();
-                    controller.selectedOptionList.value.clear();                  },
+                                 },
                   child: Text(
                     'Save',
                     style: TextStyle(color: Colors.white),

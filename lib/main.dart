@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
 import 'ViewModel/GetX/CategoryGetX.dart';
+import 'ViewModel/GetX/QuizGetx.dart';
 import 'ViewModel/GetX/SignInGetX.dart';
 
 
@@ -14,6 +15,7 @@ void main() async{
     Get.put(AuthController());
     Get.put(CategoryController());
     Get.put(QustionGetX());
+    Get.put(QuizGetX());
 
   });
   runApp(const MyApp());
